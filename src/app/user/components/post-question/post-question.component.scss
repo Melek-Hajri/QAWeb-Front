@@ -38,3 +38,30 @@
         width: 100%;
     }
 }
+
+
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+img {
+    max-width: 30%; // Adjust as needed
+    height: 30%; // Adjust as needed
+    object-fit: cover; // Ensures the image is properly scaled
+}
+
+// Additional styles for responsiveness
+@media screen and (max-width: 600px) {
+    .image-preview {
+        justify-content: center; // Center images on smaller screens
+    }
+
+    img {
+        max-width: 80px; // Smaller size on smaller screens
+        max-height: 80px; // Smaller size on smaller screens
+    }
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -7,7 +7,9 @@ import { AuthService } from 'src/app/auth-services/auth-service/auth.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
+  
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent {
 
@@ -24,6 +26,12 @@ export class SignupComponent {
     private snackBar: MatSnackBar,
     private router: Router 
   ) { }
+
+  hide = signal(true);
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
 
   ngOnInit() {
     this.signupForm = this.fb.group({

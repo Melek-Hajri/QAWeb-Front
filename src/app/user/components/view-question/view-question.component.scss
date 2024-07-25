@@ -1,0 +1,142 @@
+.question-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.vote-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.arrow-icon {
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.vote-count {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.question-body {
+    margin-top: 10px;
+}
+
+.tag-list {
+    margin-top: 10px; 
+}
+
+@media screen and (max-width: 600px) {
+    .question-card {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    .arrow-icon {
+        font-size: 20px;
+    }
+
+    .vote-count {
+        font-size: 20px;
+    }
+
+    .answer-section {
+        padding: 10px;
+    }
+}
+
+.answer-section {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.form-field {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.body mat-form-field {
+    width: 100%;
+}
+
+/* Ensure textarea inside mat-form-field takes full width */
+.body mat-form-field textarea {
+    width: 100%;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.images-preview img {
+    width: 80%;  /* Make images take the full width of their container */
+    height: auto;  /* Maintain aspect ratio */
+    margin-bottom: 10px;  /* Optional: Add some space between images */
+}
+  
+.images-preview {
+    display: flex;
+    flex-direction: column;  /* Align images vertically */
+    gap: 10px;  /* Space between images */
+    align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+    .image-preview {
+        justify-content: center; /* Center images on smaller screens */
+    }
+
+    img {
+        max-width: 100%; /* Ensure images take full width on smaller screens */
+    }
+}
+
+.button-group {
+    display: flex;
+    justify-content: center; /* Centers items horizontally */
+    margin-top: 15px; /* Adjust as needed for spacing */
+}
+
+.button-group button {
+    margin: 0 5px; /* Adjust spacing between buttons */
+}
+
+.answers-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.answer-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90%; /* Ensure the answer cards take the full width of the container */
+    margin: 10px auto;
+}
+
+@media screen and (max-width: 600px) {
+    .answer-card {
+        padding: 10px;
+    }
+}

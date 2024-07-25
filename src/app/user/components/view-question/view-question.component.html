@@ -1,0 +1,78 @@
+<div class="question-card" style="margin-top: 30px;">
+    <div *ngIf="question">
+        <h2>{{ question?.title }}</h2>
+        <p>Asked On: <b>{{ question?.createdDate | date: 'EEEE, MMMM d, y, HH:mm' }}</b> by <b>{{ question?.username }}</b></p>       
+        <div class="vote-section">
+            <div class="arrow-icon"
+                (click)="addVoteToQuestion('UPVOTE')"><i class="material-icons">keyboard_arrow_up</i>
+            </div>
+            <div class="vote-count">{{ question.voteCount }}</div>
+            <div class="arrow-icon"
+                (click)="addVoteToQuestion('DOWNVOTE')"><i class="material-icons">keyboard_arrow_down</i>
+            </div>
+        </div>
+        <div class="question-body">
+            <p>Body: {{ question?.body }}</p>
+            <div class="images-preview" *ngIf="question.convertedImgs">
+                <img *ngFor="let img of question.convertedImgs" [src]="img" alt="Question Image">
+            </div>
+            <div class="tag-list">
+                <mat-chip-listbox>
+                    <mat-chip *ngFor="let tag of question?.tags" color="primary">{{ tag }}</mat-chip>
+                </mat-chip-listbox>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="answers-card" style="margin-top: 30px;">
+    <h2>Answers</h2>
+    <div class="answer-card" *ngFor="let answer of answers; let i = index;" >
+        <div>
+            <h5>Answered By: <b>{{ answer.username }}</b> - Answered On: <b>{{ answer.createdDate | date: 'EEEE, MMMM d, y, HH:mm' }}</b></h5>
+            <div class="vote-section">
+                <div class="arrow-icon"
+                    (click)="addVoteToAnswer('UPVOTE', answer.id)"><i class="material-icons">keyboard_arrow_up</i>
+                </div>
+                <div class="vote-count">{{ answer.voteCount }}</div>
+                <div class="arrow-icon"
+                    (click)="addVoteToAnswer('DOWNVOTE', answer.id)"><i class="material-icons">keyboard_arrow_down</i>
+                </div>
+            </div>
+            <hr>
+            <p>{{ answer.body }}</p>
+            <div class="images-preview" *ngIf="answer.convertedImgs">
+                <img *ngFor="let img of answer.convertedImgs" [src]="img" alt="Answer Image">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="answer-section" style="margin-top: 30px;">
+    <div>
+        <div>
+            <h2>Post Answer</h2>
+        </div>
+
+        <form [formGroup]="validateForm" (ngSubmit)="addAnswer()">
+            <div class="body">
+                <mat-form-field appearance="fill">
+                    <mat-label>Subject</mat-label>
+                    <textarea matInput rows="2" placeholder="Solution..." formControlName="body"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="form-field">
+                <div class="images-preview">
+                    <img *ngFor="let file of selectedFiles" [src]="file.preview" alt="Image Preview">
+                </div>
+                <div class="button-group">
+                    <button type="button" mat-raised-button (click)="fileInput.click()" color="accent">Choose File</button>
+                    <input id="file" type="file" accept="image/png, image/jpeg" #fileInput hidden (change)="onFileSelected($event)" multiple>
+                </div>
+            </div>
+            <div class="button-group">
+                <button mat-raised-button color="primary">Post Answer</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -38,6 +38,13 @@
           </mat-chip-grid>
         </mat-form-field>
       </div>
+      <div class="form-input">
+        <div class="image-preview" *ngFor="let file of selectedFiles">
+            <img [src]="file.preview" height="50" alt="Image Preview">
+        </div>
+        <button type="button" mat-raised-button (click)="fileInput.click()" color="accent">Choose File</button>
+        <input id="file" type="file" accept="image/png, image/jpeg" #fileInput hidden (change)="onFileSelected($event)" multiple>
+      </div>
       <button mat-raised-button color="primary" class="login-form-button login-form-margin" type="submit" 
         (click)="postQuestion()" [disabled]="validateForm.invalid">Post Question</button>
     </form>

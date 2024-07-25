@@ -4,10 +4,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth-services/auth-service/auth.service';
 
+
+import {ChangeDetectionStrategy, signal} from '@angular/core';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   loginForm: FormGroup = this.fb.group({
@@ -21,6 +25,12 @@ export class LoginComponent {
     private router: Router,
     private snackBar: MatSnackBar
   ) { }
+
+  hide = signal(true);
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
 
   ngOnInit() {
     this.loginForm = this.fb.group({

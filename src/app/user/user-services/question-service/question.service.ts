@@ -20,11 +20,32 @@ export class QuestionService {
     );
   }
 
+  postQuestionImage(files: File[], questionId: number): Observable<any> {
+    const formData = new FormData();
+    files.forEach(file => formData.append('files', file)); // Use 'files' as the key
+
+    return this.http.post<[]>(`${BASE_URL}api/image/${questionId}`, formData, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
   getAllQuestions(pageNumber: number): Observable<any> {
     return this.http.get<[]>(`${BASE_URL}api/questions/${pageNumber}`, {
       headers: this.createAuthorizationHeader()
     });
   }
+
+  getQuestionsByUserId(pageNumber: number): Observable<any> {
+    return this.http.get<[]>(`${BASE_URL}api/questions/${StorageService.getUserId()}/${pageNumber}`, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  getQuestionById(questionId: number): Observable<any> {
+    return this.http.get<[]>(`${BASE_URL}api/question/${questionId}`, {
+      headers: this.createAuthorizationHeader()
+    });
+  }  
   
   createAuthorizationHeader(): HttpHeaders {
     let authHeaders: HttpHeaders = new HttpHeaders();
