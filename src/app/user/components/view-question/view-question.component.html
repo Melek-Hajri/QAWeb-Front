@@ -4,11 +4,15 @@
         <p>Asked On: <b>{{ question?.createdDate | date: 'EEEE, MMMM d, y, HH:mm' }}</b> by <b>{{ question?.username }}</b></p>       
         <div class="vote-section">
             <div class="arrow-icon"
-                (click)="addVoteToQuestion('UPVOTE')"><i class="material-icons">keyboard_arrow_up</i>
+                (click)="addVoteToQuestion('UPVOTE')"
+                [ngClass]="{'upvoted': question.voted == '1'}">
+                <i class="material-icons">keyboard_arrow_up</i>
             </div>
             <div class="vote-count">{{ question.voteCount }}</div>
             <div class="arrow-icon"
-                (click)="addVoteToQuestion('DOWNVOTE')"><i class="material-icons">keyboard_arrow_down</i>
+                (click)="addVoteToQuestion('DOWNVOTE')"
+                [ngClass]="{'downvoted': question.voted == '-1'}">
+                <i class="material-icons">keyboard_arrow_down</i>
             </div>
         </div>
         <div class="question-body">
@@ -26,29 +30,68 @@
 </div>
 
 <div class="answers-card" style="margin-top: 30px;">
-    <h2>Answers</h2>
-    <div class="answer-card" *ngFor="let answer of answers; let i = index;" >
-        <div>
-            <h5>Answered By: <b>{{ answer.username }}</b> - Answered On: <b>{{ answer.createdDate | date: 'EEEE, MMMM d, y, HH:mm' }}</b></h5>
-            <div class="vote-section">
-                <div class="arrow-icon"
-                    (click)="addVoteToAnswer('UPVOTE', answer.id)"><i class="material-icons">keyboard_arrow_up</i>
-                </div>
-                <div class="vote-count">{{ answer.voteCount }}</div>
-                <div class="arrow-icon"
-                    (click)="addVoteToAnswer('DOWNVOTE', answer.id)"><i class="material-icons">keyboard_arrow_down</i>
-                </div>
+    <ng-container *ngIf="answers.length === 0; else answerList">
+        <mat-icon>sentiment_dissatisfied</mat-icon>
+        <p>No answers yet.</p>
+    </ng-container>
+    <ng-template #answerList>
+        <h2>Answers</h2>
+        <div class="answer-card" *ngFor="let answer of answers; let i = index;" >
+            <div *ngIf="answer.approved" class="approved-icon">
+                <mat-icon>check_circle</mat-icon>
             </div>
-            <hr>
-            <p>{{ answer.body }}</p>
-            <div class="images-preview" *ngIf="answer.convertedImgs">
-                <img *ngFor="let img of answer.convertedImgs" [src]="img" alt="Answer Image">
+            <div>
+                <h5>Answered By: <b>{{ answer.username }}</b> - Answered On: <b>{{ answer.createdDate | date: 'EEEE, MMMM d, y, HH:mm' }}</b></h5>
+                <div class="vote-section">
+                    <div class="arrow-icon"
+                        (click)="addVoteToAnswer('UPVOTE', answer)"
+                        [ngClass]="{'upvoted': answer.voted == '1'}">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                    </div>
+                    <div class="vote-count">{{ answer.voteCount }}</div>
+                    <div class="arrow-icon"
+                        (click)="addVoteToAnswer('DOWNVOTE', answer)"
+                        [ngClass]="{'downvoted': answer.voted == '-1'}">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                    </div>
+                </div>
+                <hr>
+                <p>{{ answer.body }}</p>
+                <div class="images-preview" *ngIf="answer.convertedImgs">
+                    <img *ngFor="let img of answer.convertedImgs" [src]="img" alt="Answer Image">
+                </div>
+                <div class="comment-section" *ngFor="let comment of answer.commentDTOList">
+                    <hr>
+                    <p>
+                        {{ comment.body }}
+                        <span class="comment-details">
+                            <mat-divider vertical></mat-divider>{{ comment.username }} - {{ comment.createdDate | date: 'EEEE, MMMM d, y, HH:mm' }}
+                        </span>
+                    </p>
+                </div>
+                <hr>
+                <div class="add-comment-section">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Comment</mat-label>
+                        <input matInput #comment placeholder="Add Comment..." nzBorderless />
+                    </mat-form-field>
+                    <div>
+                        <button class="button" mat-raised-button color="primary" (click)="postComment(answer.id, comment.value)">Add Comment</button>
+                    </div>
+                </div>
+                <span *ngIf="!question.solved">
+                    <hr>
+                    <div>
+                        <button mat-raised-button *ngIf="displayButton" color="accent" (click)="approveAnswer(answer.id)">Approve Answer</button>
+                    </div>
+                </span>
             </div>
         </div>
-    </div>
+    </ng-template>
+    
 </div>
 
-<div class="answer-section" style="margin-top: 30px;">
+<div *ngIf="!question?.solved" class="answer-section" style="margin-top: 30px;">
     <div>
         <div>
             <h2>Post Answer</h2>

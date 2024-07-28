@@ -6,6 +6,7 @@ import { StorageService } from 'src/app/auth-services/storage-service/storage.se
 import { AnswerService } from '../../user-services/answer-services/answer.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { VoteService } from '../../user-services/vote-services/vote.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-view-question',
@@ -19,6 +20,8 @@ export class ViewQuestionComponent {
     body: [null, Validators.required]
   });
   answers: any[] = [];
+  displayButton: boolean = false;
+
 
   selectedFiles: { file: File; preview: string | ArrayBuffer | null }[] = [];
 
@@ -39,18 +42,22 @@ export class ViewQuestionComponent {
     this.questionService.getQuestionById(this.questionId).subscribe(
       (res) => {
         console.log(res);
-        // res.questionDTO.convertedImgs = res.questionDTO.files.map((file: any) => 'data:image/jpeg;base64,' + file.data);
         this.question = res.questionDTO;
-        if(res.questionDTO.files) {
+        if (res.questionDTO.files) {
           this.question.convertedImgs = res.questionDTO.files.map((file: any) => 'data:image/jpeg;base64,' + file.data);
           console.log(this.question.convertedImgs);
         }
-        res.answerDTOList.forEach((element: any) => {
+        this.answers = res.answerDTOList.map((element: any) => {
           if (element.files) {
             element.convertedImgs = element.files.map((file: any) => 'data:image/jpeg;base64,' + file.data);
           }
-          this.answers.push(element);
+          return element;
         });
+        if(StorageService.getUserId() == this.question.userId) {
+          this.displayButton = true;
+        } else {
+          this.displayButton = false;
+        }
       }
     );
   }
@@ -72,6 +79,7 @@ export class ViewQuestionComponent {
       );
       if (answerId != null) {
         this.snackBar.open("Answer posted successfully", "close", { duration: 5000 });
+        this.getQuestionById();
       } else {
         this.snackBar.open("Something went wrong", "close", { duration: 5000 });
       }
@@ -94,35 +102,73 @@ export class ViewQuestionComponent {
     });
   }
 
-
   addVoteToQuestion(voteType: string) {
-    console.log(voteType);
-    const data = {
-      voteType: voteType,
-      userId: StorageService.getUserId(),
-      questionId: this.questionId
+    if (this.question.voted == 1 || this.question.voted == -1) {
+      this.snackBar.open("You already voted this question", "close", { duration: 5000, panelClass: 'error-snackbar' });
+    } else {
+      console.log(voteType);
+      const data = {
+        voteType: voteType,
+        userId: StorageService.getUserId(),
+        questionId: this.questionId
+      };
+      this.voteService.addVote(data).subscribe((res) => {
+        console.log(res);
+        if (res.id != null) {
+          this.snackBar.open("Vote added successfully", "close", { duration: 5000 });
+          this.getQuestionById();
+        } else {
+          this.snackBar.open("Something went wrong", "close", { duration: 5000 });
+        }
+      });
     }
-    this.voteService.addVote(data).subscribe((res) => {
+  }
+
+  addVoteToAnswer(voteType: string, answer: any) {
+    if (answer.voted == 1 || answer.voted == -1) {
+      this.snackBar.open("You already voted this answer", "close", { duration: 5000, panelClass: 'error-snackbar' });
+    } else {
+      console.log(voteType);
+      const data = {
+        voteType: voteType,
+        userId: StorageService.getUserId(),
+        answerId: answer.id
+      };
+      this.voteService.addVote(data).subscribe((res) => {
+        console.log(res);
+        if (res.id != null) {
+          this.snackBar.open("Vote added successfully", "close", { duration: 5000 });
+          this.getQuestionById();
+        } else {
+          this.snackBar.open("Something went wrong", "close", { duration: 5000 });
+        }
+      });
+    }
+  }
+
+  approveAnswer(answerId: number) {
+    this.answerService.approveAnswer(answerId).subscribe((res) => {
       console.log(res);
       if (res.id != null) {
-        this.snackBar.open("Vote added successfully", "close", { duration: 5000 });
+        this.snackBar.open("Answer approved successfully", "close", { duration: 5000 });
+        this.getQuestionById();
       } else {
         this.snackBar.open("Something went wrong", "close", { duration: 5000 });
       }
     })
   }
 
-  addVoteToAnswer(voteType: string, answerId: number) {
-    console.log(voteType);
-    const data = {
-      voteType: voteType,
-      userId: StorageService.getUserId(),
-      answerId: answerId
+  postComment(answerId: number, comment: string) {
+    const commentDTO = {
+      body: comment,
+      answerId: answerId,
+      userId: StorageService.getUserId()
     }
-    this.voteService.addVote(data).subscribe((res) => {
+    this.answerService.postCommentToAnswer(commentDTO).subscribe((res) => {
       console.log(res);
       if (res.id != null) {
-        this.snackBar.open("Vote added successfully", "close", { duration: 5000 });
+        this.snackBar.open("Comment added successfully", "close", { duration: 5000 });
+        this.getQuestionById();
       } else {
         this.snackBar.open("Something went wrong", "close", { duration: 5000 });
       }

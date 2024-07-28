@@ -25,12 +25,26 @@ export class DashboardComponent {
     this.service.getAllQuestions(this.pageNum).subscribe((res) => {
       console.log(res);
       this.questions = res.questionDTOList;
-      this.total = res.totalPages * 5;
+      this.total = res.totalElements;
     })
   }
 
   pageIndexChange(event: any) {
     this.pageNum = event.pageIndex;
     this.getAllQuestions();
+  }
+
+  getLatestQuestions() {
+    this.service.getLatestQuestions(this.pageNum).subscribe((res) => {
+      this.questions = res.questionDTOList;
+      this.total = res.totalElements;
+    })
+  }
+
+  getHighestVotedQuestions() {
+    this.service.getHighestVotedQuestions(this.pageNum).subscribe((res) => {
+      this.questions = res.questionDTOList;
+      this.total = res.totalElements;
+    })
   }
 }

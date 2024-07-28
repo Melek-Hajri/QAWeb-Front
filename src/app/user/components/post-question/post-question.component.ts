@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { StorageService } from 'src/app/auth-services/storage-service/storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AnswerService } from '../../user-services/answer-services/answer.service';
+import { Router } from '@angular/router';
 
 interface Tag {
   name: string;
@@ -76,7 +77,8 @@ export class PostQuestionComponent {
   constructor(private service: QuestionService,
     private answerService: AnswerService,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
             ) { }
 
   ngOnInit() {
@@ -97,10 +99,12 @@ export class PostQuestionComponent {
                 }
             );
             this.snackBar.open("Question posted successfully", "close", { duration: 5000 });
+            this.router.navigate([`/user/question/${questionId}`]);
         } else {
             this.snackBar.open("Something went wrong", "close", { duration: 5000 });
         }
         this.isSubmitting = false;
+
     });
 }
 

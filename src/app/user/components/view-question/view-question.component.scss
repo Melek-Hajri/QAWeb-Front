@@ -23,11 +23,23 @@ h2 {
     cursor: pointer;
     margin-right: 10px;
     font-size: 24px;
+
+    &.upvoted {
+        color: rgb(11, 211, 81);
+    }
+    
+    &.downvoted {
+        color: rgb(211, 11, 81); // Example color for downvote
+    }
 }
 
 .vote-count {
     font-size: 24px;
     margin-right: 10px;
+}
+
+.approved-icon {
+    color: green;
 }
 
 .question-body {
@@ -139,4 +151,24 @@ h2 {
     .answer-card {
         padding: 10px;
     }
+}
+
+
+.add-comment-section {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.button {
+    margin-left: 20px;
+}
+
+.comment-section {
+    margin-bottom: 10px;
+}
+
+.comment-details {
+    font-size: 14px;
+    color: #888;
 }

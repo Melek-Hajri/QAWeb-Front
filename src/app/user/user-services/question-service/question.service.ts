@@ -42,10 +42,28 @@ export class QuestionService {
   }
 
   getQuestionById(questionId: number): Observable<any> {
-    return this.http.get<[]>(`${BASE_URL}api/question/${questionId}`, {
+    return this.http.get<[]>(`${BASE_URL}api/question/${questionId}/${StorageService.getUserId()}`, {
       headers: this.createAuthorizationHeader()
     });
   }  
+
+  searchQuestionByTitle(title: string, pageNum: number): Observable<any> {
+    return this.http.get<[]>(`${BASE_URL}api/search/${title}/${pageNum}`, {
+      headers: this.createAuthorizationHeader()
+    });
+  }  
+
+  getLatestQuestions(pageNum: number): Observable<any> {
+    return this.http.get<[]>(`${BASE_URL}api/questions/latest/${pageNum}`, {
+      headers: this.createAuthorizationHeader()
+    });
+  } 
+
+  getHighestVotedQuestions(pageNum: number): Observable<any> {
+    return this.http.get<[]>(`${BASE_URL}api/questions/highest_voted/${pageNum}`, {
+      headers: this.createAuthorizationHeader()
+    });
+  } 
   
   createAuthorizationHeader(): HttpHeaders {
     let authHeaders: HttpHeaders = new HttpHeaders();

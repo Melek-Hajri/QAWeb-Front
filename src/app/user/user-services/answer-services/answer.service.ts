@@ -37,7 +37,23 @@ export class AnswerService {
         headers: this.createAuthorizationHeader(),
         params: params
     });
-}
+  }
+
+  approveAnswer(answerId: number): Observable<any> {
+    return this.http.get<[]>(`${BASE_URL}api/answer/${answerId}`,
+      {
+        headers: this.createAuthorizationHeader()
+      }
+    );
+  }
+
+  postCommentToAnswer(commentDTO: any): Observable<any> {
+    return this.http.post<[]>(BASE_URL + "api/answer/comment", commentDTO, 
+      {
+        headers: this.createAuthorizationHeader()
+      }
+    );
+  }
 
 
   createAuthorizationHeader(): HttpHeaders {

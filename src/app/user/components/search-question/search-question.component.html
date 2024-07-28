@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="search-container">
+        <form [formGroup]="titleForm">
+            <mat-form-field class="search-field">
+                <input matInput placeholder="Search by title" formControlName="title">
+            </mat-form-field>
+            <button mat-raised-button color="accent" (click)="searchQuestionByTitle()">Search</button>
+        </form>
+    </div>
+    <ng-container *ngIf="questions.length === 0; else questionList">
+        <mat-card class="empty-message">
+            <mat-card-content>
+                <mat-icon>sentiment_dissatisfied</mat-icon>
+                <p>No questions found.</p>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+
+    <ng-template #questionList>
+        <div class="child" *ngFor="let question of questions">
+            <h2 class="question-title">
+                <a routerLink="/user/question/{{ question.id }}">
+                    <div class="title-container">
+                        <div *ngIf="question.solved" class="approved-icon">
+                            <mat-icon>check_circle</mat-icon>
+                        </div>
+                        {{ question.title }}
+                    </div>
+                </a>
+            </h2>
+            <div class="question-content">
+                <p>{{ question.body }}</p>
+                <div class="tags-container">
+                    <mat-chip-listbox>
+                        <mat-chip color="primary" *ngFor="let tag of question.tags">{{ tag }}</mat-chip>
+                    </mat-chip-listbox>
+                </div>
+                <hr>
+                <h5>
+                    Votes: <b>{{ question.voteCount }}</b>
+                     - Posted By: <b>{{ question.username }}</b>
+                     - Posted On: <b>{{ question.createdDate | date: 'dd/MM/YYYY HH:mm'}}</b>
+                </h5>
+            </div>
+        </div>
+    </ng-template>
+
+    <div class="pagination">
+        <mat-paginator [length]="total" [pageSize]="pageSize" [pageIndex]="pageNum" 
+            (page)="pageIndexChange($event)"></mat-paginator>
+    </div>
+</div>

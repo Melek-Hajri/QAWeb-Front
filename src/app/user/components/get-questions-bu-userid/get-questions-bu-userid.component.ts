@@ -22,7 +22,7 @@ export class GetQuestionsBuUseridComponent {
     this.service.getQuestionsByUserId(this.pageNum).subscribe((res) => {
       console.log(res);
       this.questions = res.questionDTOList;
-      this.total = res.totalPages * 5;
+      this.total = res.totalElements;
     })
   }
 

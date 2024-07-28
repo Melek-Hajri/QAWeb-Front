@@ -18,8 +18,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ViewQuestionComponent } from './components/view-question/view-question.component';
 import { GetQuestionsBuUseridComponent } from './components/get-questions-bu-userid/get-questions-bu-userid.component';
-
-
+import { SearchQuestionComponent } from './components/search-question/search-question.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { GetQuestionsBuUseridComponent } from './components/get-questions-bu-use
     DashboardComponent,
     PostQuestionComponent,
     ViewQuestionComponent,
-    GetQuestionsBuUseridComponent
+    GetQuestionsBuUseridComponent,
+    SearchQuestionComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,9 @@ import { GetQuestionsBuUseridComponent } from './components/get-questions-bu-use
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDividerModule,
+    MatRadioModule
   ]
 })
 export class UserModule { }

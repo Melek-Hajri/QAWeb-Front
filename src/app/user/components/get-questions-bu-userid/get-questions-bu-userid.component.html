@@ -14,7 +14,12 @@
                 <div class="child" *ngFor="let question of questions">
                     <h2 class="question-title">
                         <a routerLink="/user/question/{{ question.id }}">
-                            {{ question.title }}
+                            <div class="title-container">
+                                <div *ngIf="question.solved" class="approved-icon">
+                                    <mat-icon>check_circle</mat-icon>
+                                </div>
+                                {{ question.title }}
+                            </div>
                         </a>
                     </h2>
                     <div class="question-content">
@@ -26,15 +31,16 @@
                         </div>
                         <hr>
                         <h5>
-                            Posted By: <b>{{ question.username }}</b>
-                            Posted On: <b>{{ question.createdDate | date: 'dd/MM/YYYY HH:mm'}}</b>
+                            Votes: <b>{{ question.voteCount }}</b>
+                             - Posted By: <b>{{ question.username }}</b>
+                             - Posted On: <b>{{ question.createdDate | date: 'dd/MM/YYYY HH:mm'}}</b>
                         </h5>
                     </div>
                 </div>
             </ng-template>
 
             <div class="pagination">
-                <mat-paginator [length]="total" [pageIndex]="pageNum" [pageSize]="5" 
+                <mat-paginator [length]="total" [pageSize]="5" [pageIndex]="pageNum" 
                     (page)="pageIndexChange($event)"></mat-paginator>
             </div>
         </div>
