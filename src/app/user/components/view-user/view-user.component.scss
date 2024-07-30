@@ -1,0 +1,131 @@
+.approved-icon {
+    color: green;
+}
+
+.answer-section {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.images-preview img {
+    width: 80%;  /* Make images take the full width of their container */
+    height: auto;  /* Maintain aspect ratio */
+    margin-bottom: 10px;  /* Optional: Add some space between images */
+}
+  
+.images-preview {
+    display: flex;
+    flex-direction: column;  /* Align images vertically */
+    gap: 10px;  /* Space between images */
+    align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+    .image-preview {
+        justify-content: center; /* Center images on smaller screens */
+    }
+
+    img {
+        max-width: 100%; /* Ensure images take full width on smaller screens */
+    }
+}
+
+.answers-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.answer-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90%; /* Ensure the answer cards take the full width of the container */
+    margin: 10px auto;
+}
+
+@media screen and (max-width: 600px) {
+    .answer-card {
+        padding: 10px;
+    }
+}
+
+.child {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 600px) {
+        padding: 10px;
+    }
+}
+
+.question-title {
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 20px;
+
+    a {
+        text-decoration: none; // Remove underline
+        color: inherit; // Inherit the parent element's color
+
+        &:hover {
+            color: inherit; // Keep the color same on hover
+            text-decoration: none; // Remove underline on hover
+        }
+
+        .title-container {
+            display: flex;
+            align-items: center;
+
+            .approved-icon {
+                margin-right: 8px;
+                color: green;
+            }
+        }
+    }
+}
+
+.question-content {
+    margin-bottom: 10px;
+    font-size: 16px;
+
+    @media (max-width: 600px) {
+        font-size: 14px;
+    }
+}
+
+.tags-container {
+    margin-top: 10px;
+
+    .mat-chip-list {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+.empty-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    margin-top: 40px;
+    text-align: center;
+
+    mat-icon {
+        font-size: 64px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+}

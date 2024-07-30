@@ -6,6 +6,8 @@ import { PostQuestionComponent } from './components/post-question/post-question.
 import { ViewQuestionComponent } from './components/view-question/view-question.component';
 import { GetQuestionsBuUseridComponent } from './components/get-questions-bu-userid/get-questions-bu-userid.component';
 import { SearchQuestionComponent } from './components/search-question/search-question.component';
+import { UsersDashboardComponent } from './components/users-dashboard/users-dashboard.component';
+import { ViewUserComponent } from './components/view-user/view-user.component';
 
 const routes: Routes = [
   { path: "dashboard", component: DashboardComponent, canActivate: [UserGuard] },
@@ -13,6 +15,8 @@ const routes: Routes = [
   { path: "question/:questionId", component: ViewQuestionComponent, canActivate: [UserGuard] },
   { path: "my_questions", component: GetQuestionsBuUseridComponent, canActivate: [UserGuard] },
   { path: "search_question", component: SearchQuestionComponent, canActivate: [UserGuard] },
+  { path: "users", component: UsersDashboardComponent, canActivate: [UserGuard] },
+  { path: "user/:userId", component: ViewUserComponent, canActivate: [UserGuard] },
 ];
 
 @NgModule({

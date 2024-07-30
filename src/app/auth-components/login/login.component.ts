@@ -40,7 +40,6 @@ export class LoginComponent {
   }
 
   login() {
-    console.log(this.loginForm.value);
     this.service.login(
       this.loginForm.get(['email'])!.value,
       this.loginForm.get(['password'])!.value

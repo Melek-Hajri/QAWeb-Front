@@ -2,9 +2,9 @@
     <div class="search-container">
         <form [formGroup]="titleForm">
             <mat-form-field class="search-field">
-                <input matInput placeholder="Search by title" formControlName="title">
+                <input matInput placeholder="Search by title or tag" formControlName="titleTag">
             </mat-form-field>
-            <button mat-raised-button color="accent" (click)="searchQuestionByTitle()">Search</button>
+            <button mat-raised-button color="accent" (click)="searchQuestionByTitleAndTag()">Search</button>
         </form>
     </div>
     <ng-container *ngIf="questions.length === 0; else questionList">

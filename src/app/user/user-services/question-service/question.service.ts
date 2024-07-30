@@ -47,8 +47,8 @@ export class QuestionService {
     });
   }  
 
-  searchQuestionByTitle(title: string, pageNum: number): Observable<any> {
-    return this.http.get<[]>(`${BASE_URL}api/search/${title}/${pageNum}`, {
+  searchQuestionByTitleAndTag(query: string, pageNum: number): Observable<any> {
+    return this.http.get<[]>(`${BASE_URL}api/search/${query}/${pageNum}`, {
       headers: this.createAuthorizationHeader()
     });
   }  

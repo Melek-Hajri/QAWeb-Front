@@ -10,12 +10,16 @@ import { StorageService } from './auth-services/storage-service/storage.service'
 export class AppComponent {
   title = 'QAWeb-front';
 
-  isUserLoggedIn: boolean = false;;
-
+  isUserLoggedIn: boolean = false;
+  isUserAdmin: boolean = false;
   constructor(private router: Router) { }
 
   ngOnInit() {
     this.updateUserLoggedInStatus();
+    
+    
+    console.log(StorageService.getUser());
+    console.log(this.isUserAdmin);
     this.router.events.subscribe( event => {
       if (event instanceof NavigationEnd) {
         this.updateUserLoggedInStatus();
@@ -25,6 +29,7 @@ export class AppComponent {
 
   private updateUserLoggedInStatus(): void {
     this.isUserLoggedIn = StorageService.isUserLoggedIn();
+    this.isUserAdmin = StorageService.getUser()?.isAdmin;
   }
 
   logout() {

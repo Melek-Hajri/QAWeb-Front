@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SearchQuestionComponent implements OnInit {
 
   titleForm: FormGroup = this.fb.group({
-    title: [null, Validators.required]
+    titleTag: [null, Validators.required]
   });
   pageNum: number = 0;
   pageSize: number = 5;
@@ -21,13 +21,14 @@ export class SearchQuestionComponent implements OnInit {
 
   ngOnInit() {
     this.titleForm = this.fb.group({
-      title: [null, Validators.required]
+      titleTag: [null, Validators.required]
     });
+    this.searchQuestionByTitleAndTag();
   }
 
-  searchQuestionByTitle() {
+  searchQuestionByTitleAndTag() {
     console.log(this.titleForm.value);
-    this.questionService.searchQuestionByTitle(this.titleForm.controls['title'].value, this.pageNum).subscribe(
+    this.questionService.searchQuestionByTitleAndTag(this.titleForm.controls['titleTag'].value, this.pageNum).subscribe(
       (res) => {
         console.log(res);
         this.questions = res.questionDTOList;
@@ -38,7 +39,7 @@ export class SearchQuestionComponent implements OnInit {
 
   pageIndexChange(event: any) {
     this.pageNum = event.pageIndex;
-    this.searchQuestionByTitle();
+    this.searchQuestionByTitleAndTag();
   }
 
 }

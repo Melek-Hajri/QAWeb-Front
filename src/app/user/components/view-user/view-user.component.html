@@ -1,0 +1,76 @@
+<div class="answers-card" style="margin-top: 30px;">
+    <ng-container *ngIf="questions.length === 0; else questionList">
+        <mat-icon>sentiment_dissatisfied</mat-icon>
+        <p>{{ user?.name }} has no questions yet.</p>
+    </ng-container>
+    <ng-template #questionList>
+        <h1>{{ user?.name }}'s questions</h1>
+        <div class="child" *ngFor="let question of questions">
+            <h2 class="question-title">
+                <a routerLink="/user/question/{{ question.id }}">
+                    <div class="title-container">
+                        <div *ngIf="question.solved" class="approved-icon">
+                            <mat-icon>check_circle</mat-icon>
+                        </div>
+                        {{ question.title }}
+                    </div>
+                </a>
+            </h2>
+            <div class="question-content">
+                <p>{{ question.body }}</p>
+                <div class="tags-container">
+                    <mat-chip-listbox>
+                        <mat-chip color="primary" *ngFor="let tag of question.tags">{{ tag }}</mat-chip>
+                    </mat-chip-listbox>
+                </div>
+                <hr>
+                <h5>
+                    Votes: <b>{{ question.voteCount }}</b>
+                     - Posted On: <b>{{ question.createdDate | date: 'dd/MM/YYYY HH:mm'}}</b>
+                </h5>
+            </div>
+        </div>
+    </ng-template>
+    
+</div>
+
+
+
+
+
+
+
+
+<div class="answers-card" style="margin-top: 30px;">
+    <ng-container *ngIf="answers.length === 0; else answerList">
+        <mat-icon>sentiment_dissatisfied</mat-icon>
+        <p>{{ user?.name }} has no answers yet.</p>
+    </ng-container>
+    <ng-template #answerList>
+        <h1>{{ user?.name }}'s answers</h1>
+        <div class="child" *ngFor="let answer of answers; let i = index;" >
+            <div *ngIf="answer.approved" class="approved-icon">
+                <mat-icon>check_circle</mat-icon>
+            </div>
+            <div>
+                <h5>Votes: <b>{{ answer.voteCount }}</b> - Answered On: <b>{{ answer.createdDate | date: 'EEEE, MMMM d, y, HH:mm' }}</b></h5>
+                <hr>
+                <h4>Answered Question: <a routerLink="/user/question/{{ answer.questionId }}">{{ answer.questionTitle }}</a></h4>
+                <p>{{ answer.body }}</p>
+                <div class="images-preview" *ngIf="answer.convertedImgs">
+                    <img *ngFor="let img of answer.convertedImgs" [src]="img" alt="Answer Image">
+                </div>
+                <div class="comment-section" *ngFor="let comment of answer.commentDTOList">
+                    <hr>
+                    <p>
+                        {{ comment.body }}
+                        <span class="comment-details">
+                            <mat-divider vertical></mat-divider>{{ comment.username }} - {{ comment.createdDate | date: 'EEEE, MMMM d, y, HH:mm' }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    
+</div>

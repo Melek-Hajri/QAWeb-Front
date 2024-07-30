@@ -21,6 +21,12 @@ import { GetQuestionsBuUseridComponent } from './components/get-questions-bu-use
 import { SearchQuestionComponent } from './components/search-question/search-question.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
+import { UsersDashboardComponent } from './components/users-dashboard/users-dashboard.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ViewUserComponent } from './components/view-user/view-user.component';
+
+
 
 
 @NgModule({
@@ -29,7 +35,9 @@ import { MatRadioModule } from '@angular/material/radio';
     PostQuestionComponent,
     ViewQuestionComponent,
     GetQuestionsBuUseridComponent,
-    SearchQuestionComponent
+    SearchQuestionComponent,
+    UsersDashboardComponent,
+    ViewUserComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +55,9 @@ import { MatRadioModule } from '@angular/material/radio';
     MatCardModule,
     MatPaginatorModule,
     MatDividerModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTableModule,
+    MatTooltipModule
   ]
 })
 export class UserModule { }

@@ -1,0 +1,17 @@
+.container {
+    min-height: 91vh;
+    padding: 30px;
+
+    @media (max-width: 600px) {
+        padding: 20px;
+    }
+}
+
+button {
+    margin-right: 10px;
+}
+
+.activate-button {
+    background-color: green; /* Replace with your desired green color */
+    color: white; /* Text color for contrast */
+  }
