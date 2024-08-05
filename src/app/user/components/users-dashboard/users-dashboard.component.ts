@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from '../../admin-services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { StorageService } from 'src/app/auth-services/storage-service/storage.service';
 
 
 
@@ -26,7 +27,7 @@ export class UsersDashboardComponent {
   }
   
   getAllUsers() {
-    this.service.getAllUsers(this.pageNum).subscribe((res) => {
+    this.service.getAllUsers(this.pageNum, StorageService.getUserId()).subscribe((res) => {
       console.log(res);
       this.users = res.userDTOList;
       this.total = res.totalElements;

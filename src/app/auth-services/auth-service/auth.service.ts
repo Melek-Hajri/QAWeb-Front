@@ -40,8 +40,13 @@ export class AuthService {
       })
     );
   }
-  
-  log(message: String): void {
+
+  isAdmin(): boolean {
+    const user = StorageService.getUser();
+    return user && user.isAdmin == true;
+  }
+
+  log(message: string): void {
     console.log("User Auth Service: " + message);
   }
 }

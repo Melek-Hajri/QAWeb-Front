@@ -104,7 +104,10 @@ export class ViewQuestionComponent {
 
   addVoteToQuestion(voteType: string) {
     if (this.question.voted == 1 || this.question.voted == -1) {
-      this.snackBar.open("You already voted this question", "close", { duration: 5000, panelClass: 'error-snackbar' });
+      this.voteService.cancelQuestionVote(this.questionId).subscribe(() => {
+        this.getQuestionById();
+      });
+      this.snackBar.open("Vote cancelled", "close", { duration: 5000 });
     } else {
       console.log(voteType);
       const data = {
@@ -126,7 +129,10 @@ export class ViewQuestionComponent {
 
   addVoteToAnswer(voteType: string, answer: any) {
     if (answer.voted == 1 || answer.voted == -1) {
-      this.snackBar.open("You already voted this answer", "close", { duration: 5000, panelClass: 'error-snackbar' });
+      this.voteService.cancelAnswerVote(answer.id).subscribe(() => {
+        this.getQuestionById();
+      });
+      this.snackBar.open("Vote cancelled", "close", { duration: 5000 });
     } else {
       console.log(voteType);
       const data = {

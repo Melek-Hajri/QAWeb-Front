@@ -15,8 +15,8 @@ export class UserService {
     private snackBar: MatSnackBar
   ) { }
 
-  getAllUsers(pageNumber: number): Observable<any> {
-    return this.http.get<[]>(`${BASE_URL}api/users/${pageNumber}`, {
+  getAllUsers(pageNumber: number, userId: string): Observable<any> {
+    return this.http.get<[]>(`${BASE_URL}api/users/${pageNumber}/${userId}`, {
       headers: this.createAuthorizationHeader()
     });
   }

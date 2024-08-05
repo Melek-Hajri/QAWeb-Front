@@ -20,6 +20,18 @@ export class VoteService {
     )
   }
 
+  cancelQuestionVote(questionId: number) {
+    return this.http.delete<[]>(`${BASE_URL}api/voteQuestionCancel/${StorageService.getUserId()}/${questionId}`, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  cancelAnswerVote(answerId: number) {
+    return this.http.delete<[]>(`${BASE_URL}api/voteAnswerCancel/${StorageService.getUserId()}/${answerId}`, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
   createAuthorizationHeader(): HttpHeaders {
     let authHeaders: HttpHeaders = new HttpHeaders();
     return authHeaders.set(

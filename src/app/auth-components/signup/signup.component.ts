@@ -57,7 +57,7 @@ export class SignupComponent {
       console.log(response);
       if (response.id != null) {
         this.snackBar.open(
-          "You're registered successfully!",
+          "You're registered successfully, please check your email to activate your account.",
           'close',
           { duration: 5000 }
         );

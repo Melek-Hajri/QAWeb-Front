@@ -8,6 +8,7 @@ import { GetQuestionsBuUseridComponent } from './components/get-questions-bu-use
 import { SearchQuestionComponent } from './components/search-question/search-question.component';
 import { UsersDashboardComponent } from './components/users-dashboard/users-dashboard.component';
 import { ViewUserComponent } from './components/view-user/view-user.component';
+import { AdminGuard } from '../auth-guards/admin-guard/admin.guard';
 
 const routes: Routes = [
   { path: "dashboard", component: DashboardComponent, canActivate: [UserGuard] },
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: "question/:questionId", component: ViewQuestionComponent, canActivate: [UserGuard] },
   { path: "my_questions", component: GetQuestionsBuUseridComponent, canActivate: [UserGuard] },
   { path: "search_question", component: SearchQuestionComponent, canActivate: [UserGuard] },
-  { path: "users", component: UsersDashboardComponent, canActivate: [UserGuard] },
+  { path: "users", component: UsersDashboardComponent, canActivate: [UserGuard, AdminGuard] },
   { path: "user/:userId", component: ViewUserComponent, canActivate: [UserGuard] },
 ];
 
