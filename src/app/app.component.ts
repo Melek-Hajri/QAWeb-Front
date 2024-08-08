@@ -12,6 +12,7 @@ export class AppComponent {
 
   isUserLoggedIn: boolean = false;
   isUserAdmin: boolean = false;
+  userId: string = StorageService.getUserId();
   constructor(private router: Router) { }
 
   ngOnInit() {

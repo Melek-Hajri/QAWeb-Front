@@ -31,8 +31,11 @@
             <button mat-mini-fab class="activate-button" aria-label="Activate User" matTooltip="Activate User" (click)="activateUser(user.id)" *ngIf="!user.active">
                 <mat-icon>lock_open</mat-icon>
             </button>
-            <button mat-mini-fab color="accent" aria-label="Make Admin" matTooltip="Make Admin" [disabled]="user.admin" (click)="makeAdmin(user.id)">
+            <button mat-mini-fab color="grey" aria-label="Make Admin" matTooltip="Make Admin" (click)="makeAdmin(user.id)" *ngIf="!user.admin">
                 <mat-icon>admin_panel_settings</mat-icon>
+            </button>
+            <button mat-mini-fab color="accent" aria-label="Revoke Admin" matTooltip="Revoke Admin" (click)="revokeAdmin(user.id)" *ngIf="user.admin">
+              <mat-icon>admin_panel_settings</mat-icon>
             </button>
             <button mat-mini-fab color="primary" aria-label="More Info" matTooltip="More Info" routerLink="/user/user/{{ user.id }}">
                 <mat-icon>info</mat-icon>

@@ -19,6 +19,8 @@ import { LoginComponent } from './auth-components/login/login.component';
 import { SignupComponent } from './auth-components/signup/signup.component';
 import {MatIconModule} from '@angular/material/icon';
 
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +41,8 @@ import {MatIconModule} from '@angular/material/icon';
     ReactiveFormsModule, 
     FormsModule,
     MatSnackBarModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

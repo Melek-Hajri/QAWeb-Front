@@ -20,6 +20,8 @@ export class ViewQuestionComponent {
     body: [null, Validators.required]
   });
   answers: any[] = [];
+  comments: any[] = [];
+  similarQuestions: any[] = [];
   displayButton: boolean = false;
 
 
@@ -53,6 +55,12 @@ export class ViewQuestionComponent {
           }
           return element;
         });
+        if (res.commentDTOList) {
+          this.comments = res.commentDTOList;
+        }
+        if (res.similarQuestionsDTOList) {
+          this.similarQuestions = res.similarQuestionsDTOList;
+        }
         if(StorageService.getUserId() == this.question.userId) {
           this.displayButton = true;
         } else {
@@ -61,6 +69,8 @@ export class ViewQuestionComponent {
       }
     );
   }
+
+  
 
   addAnswer() {
     console.log(this.validateForm.value);
@@ -164,13 +174,32 @@ export class ViewQuestionComponent {
     })
   }
 
-  postComment(answerId: number, comment: string) {
+  postCommentToAnswer(answerId: number, comment: string) {
     const commentDTO = {
       body: comment,
       answerId: answerId,
       userId: StorageService.getUserId()
     }
     this.answerService.postCommentToAnswer(commentDTO).subscribe((res) => {
+      console.log(res);
+      if (res.id != null) {
+        this.snackBar.open("Comment added successfully", "close", { duration: 5000 });
+        this.getQuestionById();
+      } else {
+        this.snackBar.open("Something went wrong", "close", { duration: 5000 });
+      }
+    })
+  }
+
+  
+
+  postCommentToQuestion(comment: string) {
+    const commentDTO = {
+      body: comment,
+      questionId: this.questionId,
+      userId: StorageService.getUserId()
+    }
+    this.questionService.postCommentToQuestion(commentDTO).subscribe((res) => {
       console.log(res);
       if (res.id != null) {
         this.snackBar.open("Comment added successfully", "close", { duration: 5000 });

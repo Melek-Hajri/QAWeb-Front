@@ -25,6 +25,25 @@
                     <mat-chip *ngFor="let tag of question?.tags" color="primary">{{ tag }}</mat-chip>
                 </mat-chip-listbox>
             </div>
+            <div class="comment-section" *ngFor="let comment of comments">
+                <hr>
+                <p>
+                    {{ comment.body }}
+                    <span class="comment-details">
+                        <mat-divider vertical></mat-divider>{{ comment.username }} - {{ comment.createdDate | date: 'EEEE, MMMM d, y, HH:mm' }}
+                    </span>
+                </p>
+            </div>
+            <hr>
+            <div class="add-comment-section">
+                <mat-form-field appearance="fill">
+                    <mat-label>Comment</mat-label>
+                    <input matInput #comment placeholder="Add Comment..." nzBorderless />
+                </mat-form-field>
+                <div>
+                    <button class="button" mat-raised-button color="primary" (click)="postCommentToQuestion(comment.value)">Add Comment</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -76,7 +95,7 @@
                         <input matInput #comment placeholder="Add Comment..." nzBorderless />
                     </mat-form-field>
                     <div>
-                        <button class="button" mat-raised-button color="primary" (click)="postComment(answer.id, comment.value)">Add Comment</button>
+                        <button class="button" mat-raised-button color="primary" (click)="postCommentToAnswer(answer.id, comment.value)">Add Comment</button>
                     </div>
                 </div>
                 <span *ngIf="!question.solved">
@@ -117,5 +136,51 @@
                 <button mat-raised-button color="primary">Post Answer</button>
             </div>
         </form>
+    </div>
+</div>
+
+
+<div style="min-height: 91vh; padding: 30px;" *ngIf="similarQuestions">
+    <div>
+        <div class="container">
+            <ng-container *ngIf="similarQuestions.length === 0; else similarQuestionList">
+                <mat-card class="empty-message">
+                    <mat-card-content>
+                        <mat-icon>sentiment_dissatisfied</mat-icon>
+                        <p>No similar questions found.</p>
+                    </mat-card-content>
+                </mat-card>
+            </ng-container>
+
+            <ng-template #similarQuestionList>
+                <h2>Similar Questions</h2>
+                <div class="child" *ngFor="let question of similarQuestions">
+                    <h2 class="question-title">
+                        <a routerLink="/user/question/{{ question.id }}">
+                            <div class="title-container">
+                                <div *ngIf="question.solved" class="approved-icon">
+                                    <mat-icon>check_circle</mat-icon>
+                                </div>
+                                {{ question.title }}
+                            </div>
+                        </a>
+                    </h2>
+                    <div class="question-content">
+                        <p>{{ question.body }}</p>
+                        <div class="tags-container">
+                            <mat-chip-listbox>
+                                <mat-chip color="primary" *ngFor="let tag of question.tags">{{ tag }}</mat-chip>
+                            </mat-chip-listbox>
+                        </div>
+                        <hr>
+                        <h5>
+                            Votes: <b>{{ question.voteCount }}</b>
+                             - Posted By: <b>{{ question.username }}</b>
+                             - Posted On: <b>{{ question.createdDate | date: 'dd/MM/YYYY HH:mm'}}</b>
+                        </h5>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
     </div>
 </div>

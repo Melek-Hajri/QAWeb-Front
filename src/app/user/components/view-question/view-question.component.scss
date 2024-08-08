@@ -1,10 +1,11 @@
 .question-card {
-    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     padding: 20px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 90%;
     margin: 0 auto;
 }
 
@@ -74,10 +75,11 @@ h2 {
 }
 
 .answer-section {
-    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     padding: 20px;
     margin-bottom: 20px;
-    width: 60%;
+    width: 90%;
     margin: 0 auto;
 }
 
@@ -130,16 +132,18 @@ h2 {
 }
 
 .answers-card {
-    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     padding: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 60%;
+    width: 90%;
     margin: 0 auto;
 }
 
 .answer-card {
-    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -172,3 +176,74 @@ h2 {
     font-size: 14px;
     color: #888;
 }
+
+
+
+.container {
+    min-height: 91vh;
+    padding: 30px;
+
+    @media (max-width: 600px) {
+        padding: 20px;
+    }
+}
+
+.child {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+
+    @media (max-width: 600px) {
+        padding: 10px;
+    }
+}
+
+.question-title {
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 20px;
+
+    a {
+        text-decoration: none; // Remove underline
+        color: inherit; // Inherit the parent element's color
+
+        &:hover {
+            color: inherit; // Keep the color same on hover
+            text-decoration: none; // Remove underline on hover
+        }
+
+        .title-container {
+            display: flex;
+            align-items: center;
+
+            .approved-icon {
+                margin-right: 8px;
+                color: green;
+            }
+        }
+    }
+}
+
+
+
+
+
+.empty-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    margin-top: 40px;
+    text-align: center;
+
+    mat-icon {
+        font-size: 64px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+}
+

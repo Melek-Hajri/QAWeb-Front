@@ -39,6 +39,12 @@ export class UserService {
     });
   }
 
+  revokeAdmin(userId: number): Observable<void> {
+    return this.http.post<void>(`${BASE_URL}api/users/revoke_admin/${userId}`, {}, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
   getUserById(userId: number): Observable<any> {
     return this.http.get<[]>(`${BASE_URL}api/user/${userId}`, {
       headers: this.createAuthorizationHeader()

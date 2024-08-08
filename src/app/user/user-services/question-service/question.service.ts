@@ -64,6 +64,14 @@ export class QuestionService {
       headers: this.createAuthorizationHeader()
     });
   } 
+
+  postCommentToQuestion(commentDTO: any): Observable<any> {
+    return this.http.post<[]>(BASE_URL + "api/question/comment", commentDTO, 
+      {
+        headers: this.createAuthorizationHeader()
+      }
+    );
+  }
   
   createAuthorizationHeader(): HttpHeaders {
     let authHeaders: HttpHeaders = new HttpHeaders();

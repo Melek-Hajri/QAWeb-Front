@@ -56,7 +56,14 @@ export class UsersDashboardComponent {
   makeAdmin(userId: number) {
     this.service.makeAdmin(userId).subscribe(() => {
       this.getAllUsers();
-      this.snackBar.open("User granted admin rights successfully", "close", { duration: 5000 });
+      this.snackBar.open("Granted admin rights to user successfully", "close", { duration: 5000 });
+    });
+  }
+
+  revokeAdmin(userId: number) {
+    this.service.revokeAdmin(userId).subscribe(() => {
+      this.getAllUsers();
+      this.snackBar.open("Revoked admin rights from user successfully", "close", { duration: 5000 });
     });
   }
 

@@ -2,7 +2,7 @@
     <div class="search-container">
         <form [formGroup]="titleForm">
             <mat-form-field class="search-field">
-                <input matInput placeholder="Search by title or tag" formControlName="titleTag">
+                <input matInput placeholder="Title, body or tag" formControlName="titleTag">
             </mat-form-field>
             <button mat-raised-button color="accent" (click)="searchQuestionByTitleAndTag()">Search</button>
         </form>

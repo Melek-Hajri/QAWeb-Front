@@ -10,12 +10,12 @@
   <mat-toolbar color="primary" class="navbar">
     <span class="navbar-brand">Stack Exchange</span>
     <span class="spacer"></span>
-    <button mat-button routerLink="/user/dashboard" routerLinkActive="active">Dashboard</button>
-    <button mat-button routerLink="/user/question" routerLinkActive="active">Post Question</button>
-    <button mat-button routerLink="/user/search_question" routerLinkActive="active">Search Questions</button>
-    <button mat-button routerLink="/user/my_questions" routerLinkActive="active">My Questions</button>
-    <button mat-button routerLink="/user/users" routerLinkActive="active" *ngIf="isUserAdmin">Users Dashboard</button>
-    <button mat-button (click)="logout()" routerLinkActive="active">Logout</button>
+    <button mat-button routerLink="/user/dashboard" routerLinkActive="active">Home</button>
+    <button mat-button routerLink="/user/user/{{ userId }}" routerLinkActive="active">My activity</button>
+    <button mat-button routerLink="/user/users" routerLinkActive="active" *ngIf="isUserAdmin">Manage users</button>
+    <button mat-button routerLink="/user/question" routerLinkActive="active" matTooltip="Post Question" matTooltipPosition="below"><mat-icon>add</mat-icon></button>
+    <button mat-button routerLink="/user/search_question" routerLinkActive="active" matTooltip="Search Questions" matTooltipPosition="below"><mat-icon>search</mat-icon></button>
+    <button mat-button (click)="logout()" routerLinkActive="active" matTooltip="Logout" matTooltipPosition="below"><mat-icon>logout</mat-icon></button>
   </mat-toolbar>
 </div>
 <router-outlet></router-outlet>
